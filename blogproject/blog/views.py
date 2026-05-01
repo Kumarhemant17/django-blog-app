@@ -24,3 +24,32 @@ def create_post(request):
         form = PostForm()
 
     return render(request, 'create.html', {'form': form})
+
+@login_required
+def edit_post(request, id):
+    post = get_object_or_404(Post, id=id)
+
+    # 🔒 Restrict access
+    if request.user != post.author:
+        return redirect('home')
+
+    form = PostForm(request.POST or None, instance=post)
+
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+
+    return render(request, 'create.html', {'form': form})
+
+@login_required
+def delete_post(request, id):
+    post = get_object_or_404(Post, id=id)
+
+    if request.user != post.author:
+        return redirect('home')
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('home')
+
+    return render(request, 'confirm_delete.html', {'post': post})

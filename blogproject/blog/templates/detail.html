@@ -1,5 +1,7 @@
 {% load static %}
+
 <!DOCTYPE html>
+
 <html>
 <head>
     <title>{{ post.title }}</title>
@@ -7,14 +9,24 @@
 </head>
 <body>
 
-    <div class="container">
-        <div class="post">
-            <h1>{{ post.title }}</h1>
-            <p>{{ post.content }}</p>
-            <br>
-            <a href="/">← Back to Home</a>
-        </div>
+```
+<div class="container">
+    <div class="post">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+
+        <br>
+
+        {% if user == post.author %}
+            <a href="/edit/{{ post.id }}/">✏️ Edit</a> |
+            <a href="/delete/{{ post.id }}/">❌ Delete</a>
+            <br><br>
+        {% endif %}
+
+        <a href="/">← Back to Home</a>
     </div>
+</div>
+```
 
 </body>
 </html>
