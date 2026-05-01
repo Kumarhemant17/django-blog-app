@@ -1,0 +1,31 @@
+body {
+    font-family: Arial;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 70%;
+    margin: auto;
+}
+
+.post {
+    background: white;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 5px gray;
+    transition: 0.3s;
+}
+
+.post:hover {
+    transform: scale(1.02);
+}
+
+h1 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
