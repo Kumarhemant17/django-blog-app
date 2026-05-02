@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-container">
+    <h2>Edit Profile</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Gender</label>
+        <select name="gender">
+            <option value="">Select Gender</option>
+            <option value="Male" {% if profile.gender == "Male" %}selected{% endif %}>Male</option>
+            <option value="Female" {% if profile.gender == "Female" %}selected{% endif %}>Female</option>
+            <option value="Other" {% if profile.gender == "Other" %}selected{% endif %}>Other</option>
+        </select>
+
+        <label>Date of Birth</label>
+        <input type="date" name="dob" value="{{ profile.dob|date:'Y-m-d' }}">
+
+        <label>Location</label>
+        <input type="text" name="location" value="{{ profile.location }}">
+
+        <label>Bio</label>
+        <textarea name="bio">{{ profile.bio }}</textarea>
+
+        <label>Profile Picture</label>
+        <input type="file" name="profile_pic">
+
+        <button type="submit">Update</button>
+    </form>
+
+</div>
+
+{% endblock %}

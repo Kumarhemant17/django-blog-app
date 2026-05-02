@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Blog App</title>
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+</head>
+<body>
+
+<div class="page-wrapper">
+
+<!-- HEADER -->
+<header class="header">
+    <div class="nav">
+        <h2>My Blog</h2>
+
+        <div>
+            {% if user.is_authenticated %}
+                Welcome, {{ user.username }} |
+                <a href="/profile/">Profile</a> |
+                <form action="/accounts/logout/" method="POST" style="display:inline;">
+                <form action="/accounts/logout/" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button class="logout-btn">Logout</button>
+                </form>
+            {% else %}
+                <a href="/accounts/login/">Login</a> |
+                <a href="/signup/">Signup</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<!-- CONTENT -->
+<main class="content">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>© 2026 My Blog App</p>
+</footer>
+
+</div>
+
+</body>
+</html>

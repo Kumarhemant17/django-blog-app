@@ -1,31 +1,262 @@
-body {
-    font-family: Arial;
-    background-color: #f4f4f4;
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* 🌍 BACKGROUND */
+body {
+    background: url("/static/blog/images/bg.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.4);
+    z-index: -1;
+}
+
+/* 📦 PAGE STRUCTURE */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 🔝 HEADER */
+.header {
+    background: #333;
+    color: white;
+    padding: 15px 30px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+/* 📄 CONTENT */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* 🔻 FOOTER */
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+/* 🔘 BUTTON */
+.logout-btn {
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* 🔍 SEARCH */
+.search-box {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.search-box input {
+    padding: 10px;
+    width: 280px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.search-box button {
+    padding: 10px 15px;
+    border: none;
+    background: #333;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* 🧱 CARD GRID */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* 🧾 CARD */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* 🎨 OPTIONAL COLORS */
+.card:nth-child(1) { background: #f5f8ff; }
+.card:nth-child(2) { background: #fff5f5; }
+.card:nth-child(3) { background: #f5fff8; }
+.card:nth-child(4) { background: #fffaf5; }
+
+/* 🔗 BUTTON */
+.read-btn {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: black;
+}
+
+/* 📝 POST DETAIL */
 .container {
-    width: 70%;
+    max-width: 800px;
     margin: auto;
 }
 
 .post {
     background: white;
-    padding: 15px;
+    padding: 20px;
     margin: 20px 0;
-    border-radius: 10px;
-    box-shadow: 0 0 5px gray;
-    transition: 0.3s;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
 }
 
-.post:hover {
-    transform: scale(1.02);
+/* ⋮ MENU */
+.menu-container {
+    position: absolute;
+    top: 10px;
+    right: 15px;
 }
 
-h1 {
+.menu-btn {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.menu-content.show {
+    display: block;
+}
+
+.menu-content a {
+    display: block;
+    padding: 10px;
+    color: black;
+}
+
+.menu-content a:hover {
+    background: #f0f0f0;
+}
+
+/* 🧾 FORMS */
+.form-container {
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
     text-align: center;
+    margin-bottom: 15px;
+}
+.form-container label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+}
+.form-container input,
+.form-container textarea,
+.form-container select {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
-a {
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* 👤 PROFILE */
+.profile-container {
+    display: flex;
+    flex-wrap: wrap; /* 🔥 IMPORTANT */
+    gap: 30px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.profile-card {
+    flex: 1;
+    min-width: 280px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.profile-img {
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.user-posts {
+    flex: 2;
+    min-width: 300px;
+}
+
+/* 🔘 COMMON BUTTON */
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #333;
+    color: white;
+    border-radius: 6px;
     text-decoration: none;
-    color: blue;
 }

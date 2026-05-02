@@ -9,24 +9,67 @@
 </head>
 <body>
 
-```
 <div class="container">
-    <div class="post">
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.content }}</p>
+    <div class="post" style="position: relative;">
 
-        <br>
+    {% if user == post.author %}
+    <div class="menu-container">
+        <span class="menu-btn" onclick="toggleMenu()">⋮</span>
 
-        {% if user == post.author %}
-            <a href="/edit/{{ post.id }}/">✏️ Edit</a> |
+        <div class="menu-content" id="menu">
+            <a href="/edit/{{ post.id }}/">✏️ Edit</a>
             <a href="/delete/{{ post.id }}/">❌ Delete</a>
-            <br><br>
-        {% endif %}
-
-        <a href="/">← Back to Home</a>
+        </div>
     </div>
+    {% endif %}
+
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+
+    <hr>
+
+    <p>{{ post.total_likes }} Likes</p>
+
+    {% if user.is_authenticated %}
+        <form action="/like/{{ post.id }}/" method="POST">
+            {% csrf_token %}
+            {% if user in post.likes.all %}
+                <button type="submit">💔 Unlike</button>
+            {% else %}
+                <button type="submit">❤️ Like</button>
+            {% endif %}
+        </form>
+    {% else %}
+        <p><a href="/accounts/login/">Login</a> to like this post.</p>
+    {% endif %}
+    <h3>Comments</h3>
+
+    {% for comment in comments %}
+        <div style="background:#f9f9f9; padding:10px; margin:10px 0; border-radius:5px;">
+            <p><strong>{{ comment.author.username }}</strong></p>
+            <p>{{ comment.text }}</p>
+        </div>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h4>Add Comment</h4>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Post Comment</button>
+        </form>
+    {% else %}
+        <p><a href="/accounts/login/">Login</a> to comment.</p>
+    {% endif %}
+
+    <br>
+    <a href="/">← Back to Home</a>
+
 </div>
-```
+
+</div>
+
+<script src="{% static 'blog/js/script.js' %}"></script>
 
 </body>
 </html>
