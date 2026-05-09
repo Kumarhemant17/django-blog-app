@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Profile
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.core.paginator import Paginator
 
 @login_required
 def like_post(request, id):
@@ -174,3 +175,29 @@ def edit_profile(request):
         return redirect('profile')
 
     return render(request, 'edit_profile.html', {'profile': profile})
+
+def home(request):
+    query = request.GET.get('q', '').strip()
+
+    posts = Post.objects.annotate(
+        total_likes=Count('likes')
+    )
+
+    if query:
+        posts = posts.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query)
+        )
+
+    posts = posts.order_by('-total_likes', '-created_at')
+
+    # PAGINATION
+    paginator = Paginator(posts, 6)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'home.html', {
+        'page_obj': page_obj,
+        'query': query
+    })

@@ -260,3 +260,24 @@ body::before {
     border-radius: 6px;
     text-decoration: none;
 }
+
+/* PAGINATION */
+.pagination {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    background: #333;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.pagination span {
+    margin: 0 10px;
+    font-weight: bold;
+}
